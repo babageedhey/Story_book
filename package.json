@@ -1,0 +1,14 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "description": "app to share stories online",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "geedhey",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.17.2"
+  }
+}
