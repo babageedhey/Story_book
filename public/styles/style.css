@@ -5,8 +5,11 @@ body {
     
   }
 footer {
-  margin-top: 5px;
+  margin-top: 25px;
 }
   main {
     flex: 1 0 auto;
+  }
+.nav-wrapper .fa-bars {
+  font-size: 25px;
   }
