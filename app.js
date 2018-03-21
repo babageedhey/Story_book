@@ -3,10 +3,12 @@ const mongoose                      = require('mongoose');
 const passport                      = require('passport');
 const session                       = require('express-session');
 const cookieParser                  = require('cookie-parser');
+const exphbs                        = require('express-handlebars');
 const app                           = express();
 const port                          = process.env.PORT || 3000;
 
 const auth                          = require('./routes/auth');
+const index                         = require('./routes/index');
 const keys                          = require('./config/keys');
 const User                          = require('./models/Users');
 
@@ -14,16 +16,19 @@ const User                          = require('./models/Users');
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Express Handle Bars
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+app.use('/static', express.static('public'));
+
 //Setting global var
 app.use((req, res, next) =>{
     res.locals.user = req.user || null;
     next();
 })
 
-
 require('./config/passport')(passport);
-
-
 
 mongoose.Promise = global.Promise;
 //Monoose connect
@@ -32,13 +37,6 @@ mongoose.connect(keys.mongoURI, {})
         console.log('MongoDB Connected');
     })
     .catch(err => console.log(err));
-
-
-//Index Page route
-app.get('/', (req, res)=>{
-    res.send('Index page loading');
-})
-
 
 app.use(cookieParser());
 app.use(session({
@@ -49,6 +47,11 @@ app.use(session({
 
 //Use Routes
 app.use ('/auth', auth);
+app.use ('/', index);
+
+
+
+
 
 // Starting the server
 app.listen(port, ()=>{
