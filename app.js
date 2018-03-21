@@ -10,6 +10,7 @@ const port                          = process.env.PORT || 3000;
 const auth                          = require('./routes/auth');
 const index                         = require('./routes/index');
 const keys                          = require('./config/keys');
+const stories                       = require('./routes/stories');
 const User                          = require('./models/Users');
 
 //Passport middleware
@@ -48,6 +49,7 @@ app.use(session({
 //Use Routes
 app.use ('/auth', auth);
 app.use ('/', index);
+app.use('/stories', stories);
 
 
 
