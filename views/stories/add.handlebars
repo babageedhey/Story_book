@@ -10,25 +10,26 @@
 
         <div class="row">
             <div class="input-field">
-                <label for="status">Status</label>
-                <select name="status" id="">
+                <select name="status">
                     <option value="public" selected>Public</option>
                     <option value="private">Private</option>
                     <option value="unpublished">Unpublished</option>
+                    <label for="status">Status</label>
                 </select>
             </div>
         </div>
 
         <div class="row">
             <p>
-                <label for="allowedComments">Allow Comments</label>
-                <input type="checkbox" name="allowedComments" class="filled-in" id="filled-in-box" checked= "checked">
+                
+                <input type="checkbox" name="allowComments" class="filled-in" id="filled-in-box" checked= "checked">
+                <label for="filled-in-box">Allow Comments</label>
             </p>
         </div>
         <div class="row">
             <div class="input-field">
-                <h5>Narrate your Story:</h5>
-                <textarea name="body" id="" cols="30" rows="10"></textarea>
+                <h5>Narrate your Story Here:</h5>
+                <textarea name="body"  cols="30" rows="10"></textarea>
             </div>
         </div>
         <input type="submit" value="Save" class="btn">

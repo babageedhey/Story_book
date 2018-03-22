@@ -4,6 +4,9 @@ const passport                      = require('passport');
 const session                       = require('express-session');
 const cookieParser                  = require('cookie-parser');
 const exphbs                        = require('express-handlebars');
+const path                          = require('path');
+const bodyParser                    = require('body-parser');
+const methodOverride                = require('method-override');
 const app                           = express();
 const port                          = process.env.PORT || 3000;
 
@@ -12,16 +15,42 @@ const index                         = require('./routes/index');
 const keys                          = require('./config/keys');
 const stories                       = require('./routes/stories');
 const User                          = require('./models/Users');
+const Story                         = require('./models/Story');
+
+const {truncate, stripTags, formatDate, select}         = require('./helpers/hbs'); 
+
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
 //Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(methodOverride('_method'));
+
+
+
 //Express Handle Bars
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+    helpers: {
+        truncate: truncate,
+        stripTags: stripTags,
+        formatDate: formatDate,
+        select: select
+    },
+    defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
-app.use('/static', express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Setting global var
 app.use((req, res, next) =>{
@@ -39,12 +68,7 @@ mongoose.connect(keys.mongoURI, {})
     })
     .catch(err => console.log(err));
 
-app.use(cookieParser());
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false
-}));
+
 
 //Use Routes
 app.use ('/auth', auth);

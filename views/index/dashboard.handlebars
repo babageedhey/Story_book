@@ -1,2 +1,33 @@
-<h2>Welcome {{user.firstName}}</h2>
-<h3>These are your Stories</h3>
+<h3>Welcome {{user.firstName}}</h3>
+<h4>These are your Stories</h4>
+{{#if stories}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each stories}}
+                <tr>
+                    <td><a href="/stories/show/{{id}}">{{title}}</a></td>
+                    <td>{{formatDate date "MMMM Do YYYY"}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/stories/edit/{{id}}" class="btn left-align"><i class="fa fa-pencil"></i> Edit</a>
+                        <form action="/stories/{{id}}?_method=DELETE" id="delete-form" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                        </form>
+                    </td>
+                   
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    You have not Written any story yet
+{{/if}}
