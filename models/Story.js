@@ -19,7 +19,7 @@ const StorySchema = new Schema ({
     allowComments: {
         type: Boolean,
         default: true
-    }, 
+    },  
     comments: [{
         commentBody: {
             type: String,
