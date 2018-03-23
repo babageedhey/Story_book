@@ -21,7 +21,7 @@ const {truncate, stripTags, formatDate, select, editIcon}         = require('./h
 
 
 app.use(cookieParser());
-app.use(session({
+app.use(session({ 
     secret: 'secret',
     resave: false,
     saveUninitialized: false
