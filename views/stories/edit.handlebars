@@ -1,4 +1,5 @@
-<h3>Edit {{story.title}}</h3>
+<div class="container">
+<h3 class="show-head">Edit {{story.title}}</h3>
 <div class="row">
     <form action="/stories/{{story.id}}?_method=PUT" method="POST" class="col-s12">
         <input type="hidden" name="_method" value="PUT">
@@ -37,4 +38,5 @@
         </div>
         <input type="submit" value="Save" class="btn">
     </form>
+</div>
 </div>
